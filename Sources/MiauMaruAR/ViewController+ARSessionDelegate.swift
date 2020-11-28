@@ -11,7 +11,7 @@ extension ViewController: ARSessionDelegate {
     
     // MARK: - ARSessionDelegate
     
-    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+    public func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
         statusViewController.showTrackingQualityInfo(for: camera.trackingState, autoHide: true)
         
         switch camera.trackingState {
@@ -22,7 +22,7 @@ extension ViewController: ARSessionDelegate {
         }
     }
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
+    public func session(_ session: ARSession, didFailWithError error: Error) {
         guard error is ARError else { return }
         
         let errorWithInfo = error as NSError
@@ -40,7 +40,7 @@ extension ViewController: ARSessionDelegate {
         }
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
+    public func sessionWasInterrupted(_ session: ARSession) {
         blurView.isHidden = false
         statusViewController.showMessage("""
         SESSION INTERRUPTED
@@ -48,14 +48,14 @@ extension ViewController: ARSessionDelegate {
         """, autoHide: false)
     }
     
-    func sessionInterruptionEnded(_ session: ARSession) {
+    public func sessionInterruptionEnded(_ session: ARSession) {
         blurView.isHidden = true
         statusViewController.showMessage("RESETTING SESSION")
         
         restartExperience()
     }
     
-    func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
+    public func sessionShouldAttemptRelocalization(_ session: ARSession) -> Bool {
         return true
     }
     

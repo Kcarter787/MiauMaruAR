@@ -8,8 +8,9 @@ Main view controller for the AR experience.
 import ARKit
 import SceneKit
 import UIKit
+import SwiftUI
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+public class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -31,7 +32,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     // MARK: - View Controller Life Cycle
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         sceneView.delegate = self
         sceneView.session.delegate = self
@@ -42,7 +43,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Prevent the screen from being dimmed to avoid interuppting the AR experience.
         UIApplication.shared.isIdleTimerDisabled = true
@@ -51,7 +52,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         resetTracking()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         session.pause()
@@ -79,7 +80,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate (Image detection results)
     /// - Tag: ARImageAnchor-Visualizing
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+    public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         let referenceImage = imageAnchor.referenceImage
         updateQueue.async {
@@ -170,4 +171,20 @@ enum MiauMaruAnimation: String {
         return UIImageView(image: UIImage.gifImageWithName(apngName))
         
     }
+}
+
+public struct SwiftUIARViewController: UIViewControllerRepresentable {
+    public init(){
+        
+    }
+    
+    public func makeUIViewController(context: Context) -> ViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: MiauMaruAR.bundle)
+        return storyboard.instantiateViewController(withIdentifier: "ARViewController") as! ViewController
+    }
+    
+    public func updateUIViewController(_ uiViewController: ViewController, context: Context) {
+        //
+    }
+    
 }
