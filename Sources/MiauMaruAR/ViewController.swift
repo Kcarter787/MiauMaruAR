@@ -66,7 +66,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     /// - Tag: ARReferenceImage-Loading
     func resetTracking() {
         
-        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "MiauMaruCo-Resources", bundle: nil) else {
+        guard let referenceImages = ARReferenceImage.referenceImages(inGroupNamed: "MiauMaruCo-Resources", bundle: MiauMaruAR.bundle) else {
             fatalError("Missing expected asset catalog resources.")
         }
         

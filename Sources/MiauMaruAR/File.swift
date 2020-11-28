@@ -13,4 +13,8 @@ public class TestSwiftPackageClass {
     public func helloWorld() {
         print("Hello World!!!!")
     }
+    
+    public static func hiWorld() {
+        print("Hi World!!!!")
+    }
 }
